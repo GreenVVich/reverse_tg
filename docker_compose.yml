@@ -1,0 +1,10 @@
+version: '3.8'
+
+services:
+    bot:
+        build: .
+        image: reverse_tg
+        restart: always
+        env_file:
+            - .env
+        container_name: reverse_tg
