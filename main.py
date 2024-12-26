@@ -1,8 +1,7 @@
 import asyncio
 
-from bot import bot
-from dispatcher import dp
-import handlers
+from core.bot import bot
+from core.dispatcher import dp
 
 
 async def main():
