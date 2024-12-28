@@ -1,18 +1,21 @@
-from managers.rule import Actor, Action, Rules
+from managers.rules import Char, Act, Block, Rules
 
 
 class Regulator:
-    actors: list[Actor] = [Actor(['священник', 'священника', 'священнику',
-                                  'священника', 'священником', 'священнике']),
-                           Actor(['дьявол', 'дьявола', 'дьяволу',
-                                 'дьявола', 'дьяволом', 'дьяволе']),
-                           Actor(['мальчик', 'мальчика', 'мальчику',
-                                 'мальчика', 'мальчиком', 'мальчике'])]
-    first_action: list[Action] = [Action('просит', 1), Action('запрещает', 2)]
-    second_action: list[Action] = [Action('выйти из', 3), Action('войти в', 3)]
+    rules: list[Rules] = [Rules(
+        [Block(1, [1, 2, 3]), Block(0, None, ' '), Block(2, [1, 2]), Block(0, None, ' '),
+         Block(1, [1, 2, 3]), Block(0, None, ' '), Block(2, [3, 4]), Block(0, None, ' '),
+         Block(1, [1, 2, 3])],
+        [Char(['священник', 'священника', 'священнику',
+               'священника', 'священником', 'священнике']),
+         Char(['дьявол', 'дьявола', 'дьяволу',
+               'дьявола', 'дьяволом', 'дьяволе']),
+         Char(['мальчик', 'мальчика', 'мальчику',
+               'мальчика', 'мальчиком', 'мальчике'])],
+        [Act('просит', 1), Act('запрещает', 2), Act('выйти из', 3), Act('войти в', 3)]), ]
 
-    def get_rules(self) -> Rules:
-        return Rules(self.actors,  self.first_action, self.second_action)
+    def get_rules(self, selected_rule: int) -> Rules:
+        return self.rules[selected_rule]
 
     def update_rules(self) -> None:
         ...  # TODO
@@ -21,5 +24,4 @@ class Regulator:
 regulator = Regulator()
 
 if __name__ == '__main__':
-
     print(regulator.get_rules())

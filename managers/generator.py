@@ -1,31 +1,34 @@
+from random import choice
+
 from managers.regulator import regulator
-from managers.rule import Rules
-from utils.helpers import rand_sel
+from managers.rules import Rules, BLOCK_TYPES
 
 
 class Generator:
-    rules: Rules = regulator.get_rules()
-    story: str = ''
+    selected_rule: int = 0
+    rules: Rules = regulator.get_rules(selected_rule)
 
-    def make_code(self) -> str:
-        code = (rand_sel(self.rules.actors) + rand_sel(self.rules.first_action) + rand_sel(self.rules.actors) +
-                rand_sel(self.rules.second_action) + rand_sel(self.rules.actors))
-        return code
-
-    def run(self, in_code=None) -> str:
-        if in_code:
-            code = in_code
-        else:
-            code = self.make_code()
-        story = (f'{self.rules.actors[int(code[0]) - 1][0]} '
-                 f'{self.rules.first_action[int(code[1]) - 1].word} '
-                 f'{self.rules.actors[int(code[2]) - 1][self.rules.first_action[int(code[1]) - 1].case]} '
-                 f'{self.rules.second_action[int(code[3]) - 1].word} '
-                 f'{self.rules.actors[int(code[4]) - 1][self.rules.second_action[int(code[3]) - 1].case]}')
+    def run(self, *, rules: Rules = None) -> str:
+        if not rules:
+            rules = self.rules
+        story = ''
+        char_case = 0
+        for block in rules.story_line:
+            if BLOCK_TYPES[block.type] == 'str':
+                story += block.word
+            elif BLOCK_TYPES[block.type] == 'char':
+                story += rules.chars[choice(block.applying_set) - 1][char_case]
+            elif BLOCK_TYPES[block.type] == 'act':
+                selected_act = choice(block.applying_set) - 1
+                char_case = rules.acts[selected_act].case
+                story += rules.acts[selected_act].word
+            else:
+                ...  # TODO Error message
         return story[0].upper() + story[1:]
 
 
 generator = Generator()
 
 if __name__ == '__main__':
-    print(generator.run('21113'))
+    for _ in range(5):
+        print(generator.run())
