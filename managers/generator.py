@@ -1,5 +1,3 @@
-from typing import Dict
-
 from managers.regulator import regulator
 from managers.rule import Rules
 from utils.helpers import rand_sel

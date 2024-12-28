@@ -1,26 +1,25 @@
 from aiogram.filters.command import Command
 from aiogram import Router, types
 
-from core.settings import settings
-from core.bot import bot
 from managers.generator import generator
+from core.logger import logger
 
 base_router = Router()
 
 
 @base_router.message(Command('start'))
+@logger.log_message
 async def cmd_start(message: types.Message):
-    username = message.from_user.username
-    await bot.send_message(chat_id=settings.ADMIN_ID, text=f'New call: {username}')
-    print(username)
-    await message.answer('Все мы потом будем гореть в аду \nНо сейчас нажми на /generate')
+    return await message.answer('Все мы потом будем гореть в аду \nНо сейчас нажми на /generate')
 
 
 @base_router.message(Command('generate'))
+@logger.log_message
 async def cmd_generate(message: types.Message):
-    await message.answer(generator.run())
+    return await message.answer(generator.run())
 
 
 @base_router.message(Command('set_rules'))
+@logger.log_message
 async def cmd_set_rules(message: types.Message):
-    await message.answer('')
+    return await message.answer('Not works now')
