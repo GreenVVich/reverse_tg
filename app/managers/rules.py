@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 
 CASES = ['nominative', 'genitive', 'dative', 'accusative', 'instrumental', 'prepositional']
-BLOCK_TYPES = ['str', 'char', 'act']
+BLOCK_TYPES = ['str', 'char', 'act', 'line', 'user']
 
 
 @dataclass
@@ -26,7 +26,13 @@ class Act:
 
 
 @dataclass
+class Line:
+    word: str
+
+
+@dataclass
 class Rules:  # TODO Tags
     story_line: list[Block]
-    chars: list[Char]
-    acts: list[Act]
+    chars: list[Char] | None = None
+    acts: list[Act] | None = None
+    lines: list[Line] | None = None

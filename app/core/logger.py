@@ -1,7 +1,7 @@
 import logging
 from aiogram import types
 
-from core.settings import settings
+from app.core.settings import settings
 
 
 class Logger:
@@ -17,15 +17,11 @@ class Logger:
 
         self.logger.addHandler(file_handler)
 
-    def log_start(self):
-        self.logger.info('STARTED')
+    def status(self, status: str):
+        self.logger.info(f'status - {status}')
 
-    def log_message(self, func):
-        async def wrapper(message: types.Message):
-            response = await func(message)
-            self.logger.info(f'message - {message.from_user.username} - {repr(message.text)[1:-1]} - {repr(response.text)[1:-1]}')
-            return response
-        return wrapper
+    def info(self, message: str):
+        self.logger.info(message)
 
 
-logger = Logger('BaseLogger', 'logs/' + settings.LOGS_FILE + '.log')
+base_logger = Logger('BaseLogger', 'logs/' + settings.LOGS_FILE + '.log')

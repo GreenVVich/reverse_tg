@@ -1,14 +1,14 @@
 from random import choice
 
-from managers.regulator import regulator
-from managers.rules import Rules, BLOCK_TYPES
+from app.managers.regulator import regulator
+from app.managers.rules import Rules, BLOCK_TYPES
 
 
 class Generator:
     selected_rule: int = 0
     rules: Rules = regulator.get_rules(selected_rule)
 
-    def run(self, *, rules: Rules = None) -> str:
+    def run(self, rules: Rules = None) -> str:
         if not rules:
             rules = self.rules
         story = ''
@@ -22,6 +22,9 @@ class Generator:
                 selected_act = choice(block.applying_set) - 1
                 char_case = rules.acts[selected_act].case
                 story += rules.acts[selected_act].word
+            elif BLOCK_TYPES[block.type] == 'line':
+                story += choice(rules.lines)
+                # TODO New Types
             else:
                 ...  # TODO Error message
         return story[0].upper() + story[1:]
