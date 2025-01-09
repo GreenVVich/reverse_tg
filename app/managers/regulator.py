@@ -1,4 +1,4 @@
-from app.managers.rules import Char, Act, Block, Rules
+from app.types.rules import Char, Act, Block, Rules
 
 
 class Regulator:
@@ -12,7 +12,7 @@ class Regulator:
                'дьявола', 'дьяволом', 'дьяволе']),
          Char(['мальчик', 'мальчика', 'мальчику',
                'мальчика', 'мальчиком', 'мальчике'])],
-        [Act('просит', 1), Act('запрещает', 2), Act('выйти из', 3), Act('войти в', 3)]), ]
+        [Act('просит', 1), Act('запрещает', 2), Act('выйти из', 1), Act('войти в', 3)]), ]
 
     def get_rules(self, selected_rule: int = 0) -> Rules:
         return self.rules[selected_rule]

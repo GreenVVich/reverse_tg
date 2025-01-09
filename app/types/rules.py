@@ -32,7 +32,7 @@ class Line:
 
 @dataclass
 class Rules:  # TODO Tags
-    story_line: list[Block]
+    story_line: list[Block]  # TODO New vision of storyline + sets of lists of words
     chars: list[Char] | None = None
     acts: list[Act] | None = None
     lines: list[Line] | None = None
