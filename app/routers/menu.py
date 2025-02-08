@@ -10,6 +10,8 @@ from app.managers.regulator import regulator
 
 menu_router = Router()
 
+# TODO handle not like that. Bug: if no to_page - go to generate
+
 
 @menu_router.callback_query(MenuCB.filter(F.to_page.is_not(None)))
 async def handle_menu(callback_query: CallbackQuery, callback_data: MenuCB):
@@ -17,9 +19,9 @@ async def handle_menu(callback_query: CallbackQuery, callback_data: MenuCB):
                                            reply_markup=pages[callback_data.to_page](callback_data.use_rule))
 
 
-@menu_router.callback_query(MenuCB.filter(F.use_rule))
+@menu_router.callback_query(MenuCB.filter(F.use_rule.is_not(None)))
 async def handle_generate(callback_query: CallbackQuery, callback_data: MenuCB):
-    await callback_query.message.edit_text(text=generator.run(regulator.get_rules()),  # TODO New generator options
+    await callback_query.message.edit_text(text=generator.run(callback_data.use_rule),
                                            reply_markup=generate_menu(callback_data.use_rule))
 
 

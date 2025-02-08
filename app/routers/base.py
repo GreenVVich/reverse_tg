@@ -22,7 +22,7 @@ async def cmd_help(message: Message):
 
 @base_router.message(Command('generate'))
 async def cmd_generate(message: Message):
-    return await message.answer(generator.run())
+    return await message.answer(generator.run(generator.random_rule()))
 
 
 @base_router.message(Command('menu'))

@@ -1,6 +1,7 @@
 from aiogram.types import InlineKeyboardMarkup
 from aiogram.utils.keyboard import InlineKeyboardBuilder
 
+from app.managers.generator import generator
 from app.types.callbacks import MenuCB
 
 
@@ -33,7 +34,7 @@ def menu_menu(used_rule: int = 1) -> InlineKeyboardMarkup:
 def settings_menu(used_rule: int = 1) -> InlineKeyboardMarkup:
     builder = InlineKeyboardBuilder()
     builder.button(text='Select rule', callback_data=MenuCB(to_page=3, use_rule=used_rule).pack())
-    builder.button(text='Select random rule', callback_data=MenuCB(use_rule=used_rule).pack())
+    builder.button(text='Select random rule', callback_data=MenuCB(use_rule=generator.random_rule()).pack())
     builder.button(text='Back', callback_data=MenuCB(to_page=1, use_rule=used_rule).pack())
     builder.adjust(1)
     return builder.as_markup()

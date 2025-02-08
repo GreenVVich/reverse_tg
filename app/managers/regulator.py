@@ -1,18 +1,9 @@
-from app.types.rules import Char, Act, Block, Rules
+from app.types.rules import Rules
+from rules import RULE_BOOK
 
 
 class Regulator:
-    rules: list[Rules] = [Rules(
-        [Block(1, [1, 2, 3]), Block(0, None, ' '), Block(2, [1, 2]), Block(0, None, ' '),
-         Block(1, [1, 2, 3]), Block(0, None, ' '), Block(2, [3, 4]), Block(0, None, ' '),
-         Block(1, [1, 2, 3])],
-        [Char(['священник', 'священника', 'священнику',
-               'священника', 'священником', 'священнике']),
-         Char(['дьявол', 'дьявола', 'дьяволу',
-               'дьявола', 'дьяволом', 'дьяволе']),
-         Char(['мальчик', 'мальчика', 'мальчику',
-               'мальчика', 'мальчиком', 'мальчике'])],
-        [Act('просит', 1), Act('запрещает', 2), Act('выйти из', 1), Act('войти в', 3)]), ]
+    rules: list[Rules] = RULE_BOOK
 
     def get_rules(self, selected_rule: int = 0) -> Rules:
         return self.rules[selected_rule]

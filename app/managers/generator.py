@@ -1,42 +1,30 @@
-from random import choice
+from random import choice, randint
 
 from app.managers.regulator import regulator
-from app.types.rules import Rules, BLOCK_TYPES
 
 
-class Generator:
-    selected_rule: int = 0
-    rules: Rules = regulator.get_rules(selected_rule)
+class Generator:  # TODO convert to one method
 
-    def run(self, rules: Rules = None) -> str:
-        if not rules:
-            rules = self.rules
+    @staticmethod
+    def run(selected_rule: int = 0) -> str:
+        rules = regulator.get_rules(selected_rule)
         story = ''
-        char_case = 0
         for block in rules.story_line:
-            if BLOCK_TYPES[block.type] == 'str':
-                story += block.word
-
-            elif BLOCK_TYPES[block.type] == 'char':
-                story += rules.chars[choice(block.applying_set) - 1][char_case]
-                char_case = 0
-
-            elif BLOCK_TYPES[block.type] == 'act':
-                selected_act = choice(block.applying_set) - 1
-                char_case = rules.acts[selected_act].case
-                story += rules.acts[selected_act].word
-
-            elif BLOCK_TYPES[block.type] == 'line':
-                story += choice(rules.lines)
-                # TODO New Types
-
+            if block.applying_set:
+                selected = choice(block.applying_set)
             else:
-                ...  # TODO Error message
+                selected = choice(range(len(rules.sets[block.label])))
+            story += rules.sets[block.label][selected]
+
         return story[0].upper() + story[1:]  # TODO validation+fixing with api / lib
+
+    @staticmethod
+    def random_rule() -> int:
+        return randint(0, len(regulator.rules) - 1)
 
 
 generator = Generator()
 
 if __name__ == '__main__':
-    for _ in range(5):
+    for _ in range(1):
         print(generator.run())
