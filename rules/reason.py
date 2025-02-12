@@ -1,70 +1,10 @@
 from app.types.rules import Rules, Block, Set
 
-RULE_JSON = {
-    'storyline': [
-        {'label': 'black',
-         'applying_set': [0]
-         },
-        {'label': 'green',
-         },
-        {'label': 'black',
-         'applying_set': [1]
-         },
-        {'label': 'purple',
-         },
-        {'label': 'black',
-         'applying_set': [2]
-         },
-        {'label': 'blue',
-         },
-        {'label': 'black',
-         'applying_set': [3]
-         },
-        {'label': 'pink',
-         }
-    ],
-    'labels': ['black', 'green', 'purple', 'blue', 'pink'],
-    'sets': {
-        'black': [
-            'Коллеги,',
-            'Вчера',
-            'А сегодня',
-            'На этом всё'
-        ],
-        'green': [
-            'всем привет',
-            'привет',
-            'доброго утра',
-            'меня слышно? супер',
-            'привет всем еще раз'
-        ],
-        'purple': [
-            'занимался целью спринта',
-            'хотел закончить задачку, но не вышло',
-            'взял новую задачу, начал делать',
-            'занимался задачами комьюнити',
-            'довольно много всего было, и еще не до конца все готово'
-        ],
-        'blue': [
-            'еще пару вещей надо доделать по этой активности',
-            'нужно еще раз посмотреть итого, и тогда все будет готово',
-            'прилетела одна срочная задачка, поэтому займусь ей',
-            'нужно будет выпасть на пару часов ко врачу, не теряйте',
-            'встреча с другой командой, есть вопросы по теме'
-        ],
-        'pink': [
-            'спасибо',
-            'передаю слово дальше',
-            'подхватывайте',
-            'кто еще не говорил?',
-            'если вопросы есть — пишите, дальше кто там?'
-        ],
-    }
-}
 
 REASON_RULE = Rules(
+    'Типичный дейлик',
     [Block('black', [0]), Block('base', [1]), Block('green'), Block('base', [2]),
-     Block('black', [1]), Block('base', [1]), Block('purple'), Block('base', [2]),
+     Block('black', [1]), Block('base', [0]), Block('purple'), Block('base', [2]),
      Block('black', [2]), Block('base', [1]), Block('blue'), Block('base', [2]),
      Block('black', [3]), Block('base', [1]), Block('pink'), Block('base', [2])],
     ['base', 'black', 'green', 'purple', 'blue', 'pink'],
@@ -109,16 +49,3 @@ REASON_RULE = Rules(
         ]),
     }
 )
-
-if __name__ == '__main__':
-    from random import choice
-
-    for i in RULE_JSON['storyline']:
-        selected = 0
-        if i.get('applying_set'):
-            selected = choice(i['applying_set'])
-        else:
-            selected = choice(range(len(RULE_JSON['sets'][i['label']])))
-
-        part = RULE_JSON['sets'][i['label']][selected]
-        print(part)

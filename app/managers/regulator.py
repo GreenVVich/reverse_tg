@@ -1,4 +1,4 @@
-from app.types.rules import Rules
+from app.types.rules import Rules, ShortRule
 from rules import RULE_BOOK
 
 
@@ -10,6 +10,12 @@ class Regulator:
 
     def update_rules(self) -> None:
         ...  # TODO
+
+    def get_rule_list(self) -> list[ShortRule]:
+        result = []
+        for i, rule in enumerate(self.rules):
+            result.append(ShortRule(i, rule.name))
+        return result
 
 
 regulator = Regulator()

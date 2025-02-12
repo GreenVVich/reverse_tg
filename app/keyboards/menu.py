@@ -2,6 +2,7 @@ from aiogram.types import InlineKeyboardMarkup
 from aiogram.utils.keyboard import InlineKeyboardBuilder
 
 from app.managers.generator import generator
+from app.managers.regulator import regulator
 from app.types.callbacks import MenuCB
 
 
@@ -42,8 +43,8 @@ def settings_menu(used_rule: int = 1) -> InlineKeyboardMarkup:
 
 def rules_menu(used_rule: int = 1) -> InlineKeyboardMarkup:  # TODO
     builder = InlineKeyboardBuilder()
-    for _ in ...:
-        builder.button(text='Rule', callback_data='')
+    for item in regulator.get_rule_list():
+        builder.button(text=item.name, callback_data=MenuCB(use_rule=item.id))
     builder.button(text='Back', callback_data=MenuCB(to_page=2, use_rule=used_rule).pack())
     builder.adjust(1)
     return builder.as_markup()
