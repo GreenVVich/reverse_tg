@@ -24,9 +24,9 @@ def generate_menu(used_rule: int = 1) -> InlineKeyboardMarkup:
 
 def menu_menu(used_rule: int = 1) -> InlineKeyboardMarkup:
     builder = InlineKeyboardBuilder()
-    builder.button(text='Arena', callback_data=MenuCB(use_rule=used_rule).pack())
+    # builder.button(text='Arena', callback_data=MenuCB(use_rule=used_rule).pack())
     builder.button(text='Settings', callback_data=MenuCB(to_page=2, use_rule=used_rule).pack())
-    builder.button(text='Donate', callback_data=MenuCB(use_rule=used_rule).pack())
+    # builder.button(text='Donate', callback_data=MenuCB(use_rule=used_rule).pack())
     builder.button(text='Back', callback_data=MenuCB(to_page=0, use_rule=used_rule).pack())
     builder.adjust(1)
     return builder.as_markup()
@@ -41,7 +41,7 @@ def settings_menu(used_rule: int = 1) -> InlineKeyboardMarkup:
     return builder.as_markup()
 
 
-def rules_menu(used_rule: int = 1) -> InlineKeyboardMarkup:  # TODO
+def rules_menu(used_rule: int = 1) -> InlineKeyboardMarkup:
     builder = InlineKeyboardBuilder()
     for item in regulator.get_rule_list():
         builder.button(text=item.name, callback_data=MenuCB(use_rule=item.id))

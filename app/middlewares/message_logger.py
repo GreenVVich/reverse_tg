@@ -7,7 +7,7 @@ from app.core.logger import Logger
 from app.core.settings import settings
 
 
-class LoggingMiddleware(BaseMiddleware):
+class MessagesLoggingMiddleware(BaseMiddleware):
     logger: Logger = Logger('MessageLogger', 'logs/' + settings.LOGS_FILE + '.log')
 
     async def __call__(

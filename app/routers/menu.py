@@ -6,7 +6,6 @@ from aiogram.types import CallbackQuery
 from app.types.callbacks import MenuCB
 from app.keyboards.menu import pages, generate_menu
 from app.managers.generator import generator
-from app.managers.regulator import regulator
 
 menu_router = Router()
 
@@ -15,7 +14,7 @@ menu_router = Router()
 
 @menu_router.callback_query(MenuCB.filter(F.to_page.is_not(None)))
 async def handle_menu(callback_query: CallbackQuery, callback_data: MenuCB):
-    await callback_query.message.edit_text(text=f'{callback_data}',  # TODO Correct description of menu
+    await callback_query.message.edit_text(text=f'Меню с настройками: {callback_data}',  # TODO Correct description of menu
                                            reply_markup=pages[callback_data.to_page](callback_data.use_rule))
 
 
