@@ -10,10 +10,11 @@ class Block:
 @dataclass
 class Set:
     """
-    Param\n
+    Param
     tags: str
     combination of letters with special result modification by set
-    'u' - unique
+    'u' - unique (deleting used items of set)
+    'r' - recursion (links to rules that will be generated in )
     """
     set: list[str]
     tags: str = ''

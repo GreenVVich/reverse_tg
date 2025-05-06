@@ -15,10 +15,14 @@ class Generator:  # TODO convert to one method
                 selected = choice(block.applying_set)
             else:
                 selected = choice(range(len(rules.sets[block.label])))
-            if 'u' in rules.sets[block.label].tags:
-                story += rules.sets[block.label].pop(selected)
+            if 'r' in rules.sets[block.label].tags:
+                story += Generator.run(int(rules.sets[block.label][selected]))
             else:
-                story += rules.sets[block.label][selected]
+                if 'u' in rules.sets[block.label].tags:
+                    story += rules.sets[block.label].pop(selected)
+                else:
+                    story += rules.sets[block.label][selected]
+
 
         return story[0].upper() + story[1:]  # TODO validation+fixing with api / lib
 
